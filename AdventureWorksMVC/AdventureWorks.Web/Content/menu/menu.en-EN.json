@@ -1,0 +1,84 @@
+﻿{
+  "MenuItems": [
+    {
+      "Text": "Home",
+      "Controller": "Home",
+      "Action": "Index",
+      "AllowedRoles": "*",
+      "IconClass": "fa-home"
+    },
+    {
+      "Text": "Administration",
+      "Expanded": false,
+      "AllowedRoles": "Admin",
+      "IconClass": "fa-gear",
+      "MenuItems": [
+        {
+          "Text": "User roles",
+          "Controller": "RolesAdmin",
+          "Action": "Index",
+          "AllowedRoles": "Admin",
+          "IconClass": "fa-user-circle-o"
+        },
+        {
+          "Text": "Users",
+          "Controller": "UsersAdmin",
+          "Action": "Index",
+          "AllowedRoles": "Admin",
+          "IconClass": "fa-user"
+        }
+      ]
+    },
+    {
+      "Text": "Human Resources",
+      "Expanded": false,
+      "AllowedRoles": "Admin,Manager",
+      "IconClass": "fa-angle-left",
+      "MenuItems": [
+        {
+          "Text": "Departments",
+          "Controller": "Departments",
+          "Action": "Index",
+          "AllowedRoles": "Admin,Manager",
+          "IconClass": "fa-angle-double-right"
+        },
+        {
+          "Text": "Employees",
+          "Controller": "Employees",
+          "Action": "Index",
+          "AllowedRoles": "Admin,Manager",
+          "IconClass": "fa-angle-double-right"
+        }
+      ]
+    },
+    {
+      "Text": "Bikes",
+      "Expanded": false,
+      "AllowedRoles": "*",
+      "IconClass": "fa-angle-left",
+      "MenuItems": [
+        {
+          "Text": "Mountain Bikes",
+          "Controller": "Products",
+          "Action": "MountainBikes",
+          "AllowedRoles": "*",
+          "IconClass": "fa-angle-double-right"
+        },
+        {
+          "Text": "Road Bikes",
+          "Controller": "Products",
+          "Action": "RoadBikes",
+          "AllowedRoles": "*",
+          "IconClass": "fa-angle-double-right"
+        },
+        {
+          "Text": "Touring Bikes",
+          "Controller": "Products",
+          "Action": "TouringBikes",
+          "AllowedRoles": "*",
+          "IconClass": "fa-angle-double-right"
+        }
+      ]
+    }
+  ]
+}

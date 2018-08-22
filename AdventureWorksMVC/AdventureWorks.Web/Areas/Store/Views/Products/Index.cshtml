@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Products";
+}
+
+<section class="content-header">
+    <h1>Products</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <p><a class="btn btn-lg btn-info full-width" href="@Url.Action("MountainBikes", "Home")">Mountain Bikes</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-lg btn-info full-width" href="@Url.Action("RoadBikes", "Home")">Road Bikes</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-lg btn-info full-width" href="@Url.Action("TouringBikes", "Home")">Touring Bikes</a></p>
+        </div>
+    </div>
+
+    @*<div id="grid"></div>*@
+    <div id="list_products" class="list-items"></div>
+    <div id="pager_products" class="k-pager-wrap"></div>
+</section>
+
+@*<img src="@Url.Action( "Photo", "Products", new { id = Model.ProductID } )" class="img-circle" alt="Product Image" />*@
+
+<script type="text/x-kendo-template" id="template_product">
+    <div class="treeView-item col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="item">
+            <div class="item-image">
+                <img src="Photo/#:productID#" class="img_product" alt="Product Image" />
+            </div>
+            <div class="item-body">
+                <span class="title">#:name#</span><br />
+                <span>Code:</span><span>#:productNumber#</span><br />
+                <span>Color:</span><span>#:color#</span><br />
+                @*<p>#:kendo.toString(standardCost, "c")#</p>*@
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar">
+    <div class="toolbar-actions">
+        <button class="k-button k-button-icontext k-grid-add" name="create"><i class="fa fa-plus"></i> Insert</button>
+        <button class="k-button k-button-icontext k-grid-edit" name="edit"><i class="fa fa-edit"></i> Edit</button>
+        <button class="k-button k-button-icontext k-grid-delete" name="delete"><i class="fa fa-trash-o"></i> Delete</button>
+        <button class="k-button k-button-icontext k-grid-view" name="view"><i class="fa fa-eye"></i> View</button>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar-preview">
+    <div class="toolbar-actions">
+    </div>
+</script>
+
+@section scripts {
+    @Styles.Render("~/Areas/Store/Views/Products/Index.css")
+
+    @Scripts.Render("~/Areas/Store/Views/Products/Index.js")
+}

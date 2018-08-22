@@ -1,0 +1,61 @@
+﻿@using AdventureWorks.Web.Helpers.Html
+@model AdventureWorks.Web.Areas.Store.Models.ProductsModel
+@{
+    ViewBag.Title = "Bikes";
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">@Model.ViewTitle</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div id="header-menu" class="row">
+        <div class="col-md-4">
+            <p><a class="btn btn-lg @(Model.SubcategoryID == 1 ? "btn-primary" : "btn-default") full-width" href="@Url.Action("Bikes", "Products", new { subcategory = 1 })">Mountain Bikes</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-lg @(Model.SubcategoryID == 2 ? "btn-primary" : "btn-default") full-width" href="@Url.Action("Bikes", "Products", new { subcategory = 2 })">Road Bikes</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-lg @(Model.SubcategoryID == 3 ? "btn-primary" : "btn-default") full-width" href="@Url.Action("Bikes", "Products", new { subcategory = 3 })">Touring Bikes</a></p>
+        </div>
+    </div>
+
+    <div id="list_products" class="list-items row"></div>
+    <div id="pager_products" class="k-pager-wrap row"></div>
+</section>
+
+<script type="text/x-kendo-template" id="template_product">
+    <div class="treeView-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="item">
+            <div class="item-image">
+                <img src="Photo/#:ProductID#" class="img_product" alt="Product Image" />
+            </div>
+            <div class="item-body">
+                <span class="title"><a href="Display/#:ProductID#">#:Name#</a></span><br />
+                <span>Code:</span><span>#:ProductNumber#</span><br />
+                <span>Color:</span><span>#:Color#</span><br />
+                @*<p>#:kendo.toString(standardCost, "c")#</p>*@
+            </div>
+        </div>
+    </div>
+</script>
+
+@section scripts {
+    @Styles.Render("~/Areas/Store/Views/Products/Bikes.css")
+
+    @Scripts.Render("~/Areas/Store/Views/Products/Bikes.js")
+
+    <script type="text/javascript">
+        var model = @(Html.ToJson(Model));
+
+        $(function () {
+            var view = new SynApp.Products.ViewBikes(model);
+        });
+    </script>
+}

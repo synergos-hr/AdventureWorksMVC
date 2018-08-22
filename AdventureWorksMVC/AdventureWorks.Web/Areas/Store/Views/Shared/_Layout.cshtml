@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>     <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>        <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>        <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AdventureWorksMVC: Demo ASP.NET MVC application; using KendoUI controls, AdminLTE design, EntityFramework ORM, MS SQL db." />
+
+    <meta property="og:locale" content="en_EN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AdventureWorksMVC - Demo ASP.NET MVC application" />
+    <meta property="og:description" content="AdventureWorksMVC: Demo ASP.NET MVC application; using KendoUI controls, AdminLTE design, EntityFramework ORM, MS SQL db." />
+    <meta property="og:url" content="http://adventureworksmvc.synergos.hr/" />
+    <meta property="og:site_name" content="AdventureWorksMVC" />
+
+    <title>AdventureWorksMVC | @ViewBag.Title | Demo ASP.NET MVC application</title>
+
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/css/fonts/font-awesome/css/css")
+    @Styles.Render("~/Content/css/ionicons/css/css")
+    @Styles.Render("~/Content/kendoCommon")
+    @Styles.Render("~/Content/kendoSkinSilver")
+    @Styles.Render("~/Content/adminLte")
+    @Styles.Render("~/Content/adminLteSkinBlueLight")
+    @Styles.Render("~/Content/sweetalert")
+    @Styles.Render("~/Content/app")
+    @RenderSection("styles", required: false)
+
+    <script type="text/javascript">
+        window.applicationBaseUrl = @Html.Raw(HttpUtility.JavaScriptStringEncode(new Uri(new Uri(Context.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Content("~/")).ToString(), true));
+
+        if (window.applicationBaseUrl.charAt(window.applicationBaseUrl.length - 1) === '/')
+            window.applicationBaseUrl = window.applicationBaseUrl.substr(0, window.applicationBaseUrl.length - 1);
+    </script>
+
+    <script type='text/javascript'>
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("i").length === 1);
+        if (isIeLessThan9) {
+            alert("You are using old version of Internet Explorer.");
+        }
+    </script>
+</head>
+<body class="hold-transition skin-blue-light layout-top-nav">
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        @*<a href="@Url.Action("Index", "Home")" class="navbar-brand"><img src="~/Content/img/AdventureWorks-Logo.png" /></a>*@
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    @Html.Action("DisplayTopMenu", "Home")
+
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            @*@Html.Action("DisplayMessagesMenu", "Home")
+                            @Html.Action("DisplayNotificationsMenu", "Home")
+                            @Html.Action("DisplayTasksMenu", "Home")*@
+
+                            @Html.Action("DisplayUserMenu", "Home")
+                        </ul>
+                    </div><!-- /.navbar-custom-menu -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="container">
+                @RenderBody()
+            </div><!-- /.container -->
+        </div><!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="container">
+                @*<div class="pull-right hidden-xs">
+                    <b>Version</b> 2.3.11
+                </div>*@
+                <strong>&copy; @DateTime.Now.Year <a href="http://www.synergos.hr">Synergos</a>.</strong> All rights reserved.
+            </div><!-- /.container -->
+        </footer>
+
+        <!-- dynamic UI elements -->
+        <div id="dialog-message"></div>
+    </div>
+
+    @Scripts.Render("~/bundles/jQuery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/appLib")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/adminLte")
+    @Scripts.Render("~/bundles/sweetalert")
+
+    @RenderSection("scriptsKendo", required: false)
+
+    @RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundles/appJs")
+</body>
+</html>

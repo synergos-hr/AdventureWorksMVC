@@ -1,0 +1,69 @@
+﻿@using AdventureWorks.Web.Helpers.Html
+@model AdventureWorks.Model.Models.ProductModel
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <img src='@Url.Action( "Photo", "Products", new { id = Model.ProductID } )' />
+            </div>
+            <div class="col-sm-6 col-md-8 col-lg-9">
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Name</label></div>
+                    <div data-container-for="name" class="col-sm-9 col-md-8"><span data-bind="text: name"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Product Number</label></div>
+                    <div data-container-for="productNumber" class="col-sm-9 col-md-8"><span data-bind="text: productNumber"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Color</label></div>
+                    <div data-container-for="color" class="col-sm-9 col-md-8"><span data-bind="text: color"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Size</label></div>
+                    <div data-container-for="sizeWithMeasure" class="col-sm-9 col-md-8"><span data-bind="text: sizeWithMeasure" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Weight</label></div>
+                    <div data-container-for="weightWithMeasure" class="col-sm-9 col-md-8"><span data-bind="text: weightWithMeasure" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-4"><label>Price</label></div>
+                    <div data-container-for="priceWithCurrency" class="col-sm-9 col-md-8"><span data-bind="text: priceWithCurrency" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="view-buttons">
+            @Html.ActionLink("Back to List", "Bikes", "Products", new { subcategory = Model.ProductSubcategoryID }, new { @class = "btn btn-primary btn-flat" })
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    @*@Styles.Render("~/Areas/Store/Views/Products/Display.css")*@
+
+    @*@Scripts.Render("~/Areas/Store/Views/Products/Display.js")*@
+
+    <script type="text/javascript">
+        var model = @(Html.ToJson(Model));
+
+        $(function () {
+            var ko = kendo.observable(model);
+
+            kendo.bind($('section.content'), ko);
+        });
+    </script>
+}

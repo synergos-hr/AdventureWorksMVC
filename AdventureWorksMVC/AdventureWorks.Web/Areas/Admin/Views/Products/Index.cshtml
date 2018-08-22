@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Products";
+}
+
+<section class="content-header">
+    <h1>Products</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div id="grid"></div>
+</section>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar">
+    <div class="toolbar-actions">
+        <button class="k-button k-button-icontext k-grid-add" name="create"><i class="fa fa-plus"></i> Insert</button>
+        <button class="k-button k-button-icontext k-grid-edit" name="edit"><i class="fa fa-edit"></i> Edit</button>
+        <button class="k-button k-button-icontext k-grid-delete" name="delete"><i class="fa fa-trash-o"></i> Delete</button>
+        <button class="k-button k-button-icontext k-grid-view" name="view"><i class="fa fa-eye"></i> View</button>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar-preview">
+    <div class="toolbar-actions">
+    </div>
+</script>
+
+@section scripts {
+@Scripts.Render("~/Areas/Admin/Views/Products/ProductsGrid.js")
+@Scripts.Render("~/Areas/Admin/Views/Products/ProductsView.js")
+
+<script type="text/javascript">
+    $(function () {
+        var view = new SynApp.Admin.Products.ProductsView();
+    });
+</script>
+}

@@ -1,0 +1,38 @@
+﻿@using AdventureWorks.Web.Models.Menu
+<ul class="sidebar-menu" data-widget="tree" data-api="tree" data-accordion=0>
+    @*<li class="header">@Labels.MenuHeader</li>*@
+
+    @foreach (MenuItem menuItem in Model.MenuItems)
+    {
+        if (menuItem.MenuItems is null)
+        {
+            if (menuItem.Visible)
+            {
+                <li><a href="@Url.Action(menuItem.Action, menuItem.Controller)"><i class="fa @menuItem.IconClass"></i> @menuItem.Text</a></li>
+            }
+        }
+        else
+        {
+            if (menuItem.Visible)
+            {
+                <li class="treeview @Html.Raw(menuItem.Expanded ? "menu-open" : "") @Html.Raw(menuItem.ChildSelected ? "active" : "")">
+                    <a href="#">
+                        <i class="fa @menuItem.IconClass"></i> <span>@menuItem.Text</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="@Html.Raw(menuItem.Expanded || menuItem.ChildSelected ? "display: block" : "display: none")">
+                        @foreach (var submenuItem in menuItem.MenuItems)
+                        {
+                            if (submenuItem.Visible)
+                            {
+                                <li @Html.Raw(submenuItem.Selected ? "class='active'" : "")><a href="@Url.Action(submenuItem.Action, submenuItem.Controller)"><i class="fa @submenuItem.IconClass"></i> @submenuItem.Text</a></li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+</ul>
