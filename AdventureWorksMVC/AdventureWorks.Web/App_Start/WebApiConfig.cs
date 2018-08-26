@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace AdventureWorksMVC
+namespace AdventureWorks.Web
 {
     public static class WebApiConfig
     {
@@ -13,6 +13,8 @@ namespace AdventureWorksMVC
 
         public static void Register(HttpConfiguration config)
         {
+            //config.EnableCors();
+
             // Web API configuration and services
             var routes = config.Routes;
 
@@ -73,6 +75,9 @@ namespace AdventureWorksMVC
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
             // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
             //config.EnableQuerySupport();
+
+            // Add media (upload) support
+            //config.Formatters.XmlFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("multipart/form-data"));
         }
     }
 }

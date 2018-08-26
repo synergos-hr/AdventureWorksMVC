@@ -1,0 +1,20 @@
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@model AdventureWorks.Web.Models.Error.AccessDeniedViewModel
+@{
+    ViewBag.Title = Labels.AccessDenied;
+}
+    <div class="login-box" style="width: 450px">
+        <div class="login-logo">
+            <b>@AppSettings.AppName</b>
+        </div>
+
+        <div class="login-box-body">
+            <p class="login-box-msg">
+                @Html.Raw(string.Format(Messages.AccessDenied_Message, Model.Url, Html.ActionLink(Labels.Home, "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })))
+            </p>
+            <div class="footer">
+                <a href="@Url.Action("Index", "Home" )" class="btn btn-default btn-primary" style="width: 100%;">@Labels.Home</a>
+            </div>
+        </div><!-- .login-box-body -->
+    </div><!-- .login-box -->

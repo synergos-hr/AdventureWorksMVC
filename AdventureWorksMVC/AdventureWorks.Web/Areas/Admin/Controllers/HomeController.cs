@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AdventureWorks.Web.Helpers.Attributes;
 
 namespace AdventureWorks.Web.Areas.Admin.Controllers
 {
@@ -10,6 +11,12 @@ namespace AdventureWorks.Web.Areas.Admin.Controllers
             if (!ControllerContext.RouteData.DataTokens.ContainsKey("area"))
                 ControllerContext.RouteData.DataTokens.Add("area", "Admin");
 
+            return View();
+        }
+
+        [CustomMvcAuthorize(Roles = "SuperAdmin,Admin")]
+        public ActionResult RoadMap()
+        {
             return View();
         }
 

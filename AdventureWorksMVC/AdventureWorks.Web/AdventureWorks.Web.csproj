@@ -190,9 +190,12 @@
     <Compile Include="Controllers\API\HumanResources\DepartmentsController.cs" />
     <Compile Include="Controllers\API\ProductsController.cs" />
     <Compile Include="Areas\Site\Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Mvc\Base\BaseController.cs" />
+    <Compile Include="Controllers\Mvc\ErrorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Attributes\CustomMvcAuthorize.cs" />
     <Compile Include="Helpers\Attributes\HandleAntiforgeryTokenErrorAttribute.cs" />
     <Compile Include="Helpers\Bootstrap\BootstrapAlert.cs" />
     <Compile Include="Helpers\Exceptions\DefaultApiExceptionHandler.cs" />
@@ -206,6 +209,10 @@
     <Compile Include="Helpers\Translation\LabelElementCollection.cs" />
     <Compile Include="Helpers\Translation\LabelTranslatorSection.cs" />
     <Compile Include="Helpers\Translation\Translator.cs" />
+    <Compile Include="Helpers\User\UserProfileHelper.cs" />
+    <Compile Include="Helpers\User\UserRoleHelper.cs" />
+    <Compile Include="Models\Error\AccessDeniedViewModel.cs" />
+    <Compile Include="Models\Error\NotFoundViewModel.cs" />
     <Compile Include="Models\Menu\MenuItem.cs" />
     <Compile Include="Models\Menu\MenuViewModel.cs" />
     <Compile Include="Models\Metadata\ModelPropertyMetadata.cs" />
@@ -226,36 +233,10 @@
     <Content Include="Areas\Store\Views\Products\Bikes.css" />
     <Content Include="Areas\Store\Views\Products\Index.css" />
     <Content Include="Areas\Store\Views\Products\Index.js" />
-    <Content Include="Content\css\adminLTE\skins\skin-black-light.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-black-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-black.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-black.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-blue-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-blue.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-blue.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-green-light.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-green-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-green.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-green.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-purple-light.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-purple-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-purple.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-purple.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-red-light.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-red-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-red.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-red.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-yellow-light.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-yellow-light.min.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-yellow.css" />
-    <Content Include="Content\css\adminLTE\skins\skin-yellow.min.css" />
-    <Content Include="Content\css\adminLTE\skins\_all-skins.css" />
-    <Content Include="Content\css\adminLTE\skins\_all-skins.min.css" />
     <Content Include="Content\css\bootstrap-themed\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap-themed\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap-themed\bootstrap.css" />
     <Content Include="Content\css\bootstrap-themed\bootstrap.min.css" />
-    <Content Include="Content\css\adminLTE\css\AdminLTE.css" />
     <Content Include="Content\css\adminLTE\img\avatar.png" />
     <Content Include="Content\css\adminLTE\img\avatar04.png" />
     <Content Include="Content\css\adminLTE\img\avatar2.png" />
@@ -285,7 +266,6 @@
     <Content Include="Content\css\adminLTE\img\user6-128x128.jpg" />
     <Content Include="Content\css\adminLTE\img\user7-128x128.jpg" />
     <Content Include="Content\css\adminLTE\img\user8-128x128.jpg" />
-    <Content Include="Content\css\adminLTE\skins\skin-blue-light.css" />
     <Content Include="Content\css\bootstrap\bootstrap.css" />
     <Content Include="Content\css\bootstrap\bootstrap.min.css" />
     <Content Include="Content\css\fonts\font-awesome\css\font-awesome.css" />
@@ -896,7 +876,7 @@
     <Content Include="Content\css\ionicons\png\512\xbox.png" />
     <Content Include="Content\css\sweetalert2\sweetalert2.css" />
     <Content Include="Content\css\sweetalert2\sweetalert2.min.css" />
-    <Content Include="Content\img\AdventureWorks-Logo.png" />
+    <Content Include="Content\images\AdventureWorks-Logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Content\css\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -981,10 +961,9 @@
     <Content Include="Areas\Admin\Views\Departments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
     <Content Include="Content\menu\menu.en-EN.json" />
+    <Content Include="Areas\Store\Views\Home\RoadMap.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\RoadMap.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="Scripts\AdminLTE\app.js" />
-    <Content Include="Scripts\AdminLTE\app.min.js" />
-    <Content Include="Scripts\AdminLTE\demo.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
@@ -1003,7 +982,9 @@
     <Content Include="Scripts\Synergos\synergos.kendo.js" />
     <Content Include="Scripts\Synergos\synergos.ui.js" />
     <Content Include="Scripts\user.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1018,13 +999,15 @@
     <Content Include="Areas\Site\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_BootstrapAlerts.cshtml" />
     <Content Include="Areas\Store\Views\Products\Display.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Menu\" />
     <Folder Include="Areas\Site\Models\" />
     <Folder Include="Content\css\kendo\" />
-    <Folder Include="Views\Department\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1045,6 +1028,10 @@
     <ProjectReference Include="..\AdventureWorks.Model\AdventureWorks.Model.csproj">
       <Project>{C03DB26A-D682-44FF-8495-B0FCCFCF55D0}</Project>
       <Name>AdventureWorks.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.Resources\AdventureWorks.Resources.csproj">
+      <Project>{5eddaaf2-46fd-48fc-a6f2-81f2c30041d9}</Project>
+      <Name>AdventureWorks.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

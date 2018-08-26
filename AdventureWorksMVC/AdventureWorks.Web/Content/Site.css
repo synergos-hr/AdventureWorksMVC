@@ -1,4 +1,52 @@
-﻿/* Bootstrap */
+﻿/* colors */
+
+.skin-green-light h1 {
+    color: #00a65a !important;
+}
+
+.skin-red-light h1 {
+    color: #dd4b39 !important;
+}
+
+.skin-green-light .content-wrapper,
+.skin-red-light .content-wrapper 
+{
+    background-color: rgba(243, 243, 244, 0.35);
+}
+
+/* colors - end */
+
+/* MVC */
+
+.jumbotron {
+    padding: 20px 15px 30px 15px !important;
+    background-color: #fff;
+}
+.jumbotron h1 {
+    font-size: 50px;
+}
+
+div.validation-summary-errors {
+    color: #b94a48;
+    background-color: orange;
+}
+div.validation-summary-errors ul {
+    margin-bottom: 10px;
+    padding-left: 0;
+    list-style-type: none;
+    text-align: center;
+}
+    div.validation-summary-errors ul li {
+        padding: 5px 0 5px 0;
+    }
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* MVC - end */
+
+/* Bootstrap */
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -8,11 +56,13 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
+/*
 input,
 select,
 textarea {
     max-width: 580px;
 }
+*/
 
 @media (min-width: 768px) {
     .navbar-brand {
@@ -30,12 +80,25 @@ textarea {
     background-color: white;
 }
 
-.jumbotron {
-    background-color: #ecf0f5;
-}
-
 /* Bootstrap - end */
 
+/* AdminLTE */
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: 200px;
+}
+
+.skin-green-light .sidebar-menu .treeview-menu > li.active > a,
+.skin-green-light .sidebar-menu .treeview-menu > li > a:hover {
+    color: #00a65a;
+}
+
+.skin-red-light .sidebar-menu .treeview-menu > li.active > a,
+.skin-red-light .sidebar-menu .treeview-menu > li > a:hover {
+    color: #dd4b39;
+}
+
+/* AdminLTE - end */
 
 /* Kendo */
 

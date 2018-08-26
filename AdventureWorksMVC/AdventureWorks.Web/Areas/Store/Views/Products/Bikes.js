@@ -4,17 +4,17 @@ var SynApp = SynApp || {};
 var Products = $.extend(true, SynApp, { Products: {} });
 
 $.extend(SynApp.Products, {
-    ViewBikes: (function () {
+    BikesView: (function () {
 
-        function ViewBikes(model) {
-            this.List = new SynApp.Products.ListBikes(model.SubcategoryID);
+        function BikesView(model) {
+            this.model = Synergos.Models.ViewModel;
+
+            this.List = new SynApp.Products.ListBikes(this.model.SubcategoryID);
         }
 
-        return ViewBikes;
-    })()
-});
+        return BikesView;
+    })(),
 
-$.extend(SynApp.Products, {
     ListBikes: (function () {
         function ListBikes(subcategoryID) {
             var that = this;
@@ -56,4 +56,8 @@ $.extend(SynApp.Products, {
 
         return ListBikes;
     })()
+});
+
+$(function () {
+    Synergos.View = new SynApp.Products.BikesView();
 });

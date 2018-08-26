@@ -1,13 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@model HandleErrorInfo
+@{
+    ViewBag.Title = Labels.Error;
+}
+    <div class="login-box">
+        <div class="login-logo">
+            <b>@AppSettings.AppName</b>
+        </div>
+
+        <div class="login-box-body">
+            <hgroup>
+                <h3 class="text-danger">@Messages.Error_Message</h3>
+            </hgroup>
+        </div>
+    </div>

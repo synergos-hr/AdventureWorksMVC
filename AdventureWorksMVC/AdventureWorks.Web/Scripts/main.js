@@ -53,15 +53,11 @@ var SynApp   = SynApp   || {};
     //        alerter.showMessage();
     //    });
 
-    //w2utils.locale(window.applicationBaseUrl + '/Content/w2ui_locales/hr-hr.txt');
-
-    //w2utils.settings['dataType'] = 'JSON';
-    //w2utils.settings['groupSymbol'] = ',';
-
     $('#userMenuLogout').click(function () {
         $('#userMenuLogoutForm').submit();
     });
 })();
+
 window.addEventListener("load", function () {
     $(".display-after-load").show();
 

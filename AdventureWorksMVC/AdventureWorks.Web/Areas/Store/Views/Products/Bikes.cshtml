@@ -1,7 +1,12 @@
 ﻿@using AdventureWorks.Web.Helpers.Html
+@using AdventureWorks.Web.Helpers.Settings
 @model AdventureWorks.Web.Areas.Store.Models.ProductsModel
 @{
-    ViewBag.Title = "Bikes";
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Bikes";
 }
 
 <section class="content-header">
@@ -47,15 +52,11 @@
 </script>
 
 @section scripts {
-    @Styles.Render("~/Areas/Store/Views/Products/Bikes.css")
-
-    @Scripts.Render("~/Areas/Store/Views/Products/Bikes.js")
+    @Styles.Render("~/Areas/Store/Views/Products/Bikes.css?version=" + AppSettings.AppVersion)
 
     <script type="text/javascript">
-        var model = @(Html.ToJson(Model));
-
-        $(function () {
-            var view = new SynApp.Products.ViewBikes(model);
-        });
+        Synergos.Models.ViewModel = @Html.Raw(Json.Encode(Model));
     </script>
+
+    @Scripts.Render("~/Areas/Store/Views/Products/Bikes.js?version=" + AppSettings.AppVersion)
 }

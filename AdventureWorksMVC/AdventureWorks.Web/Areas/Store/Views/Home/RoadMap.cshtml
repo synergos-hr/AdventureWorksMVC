@@ -1,0 +1,121 @@
+﻿@using AdventureWorks.Resources
+@{
+    ViewBag.Title = Labels.ReleaseNotes;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> @Labels.Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <h3>0.20.0</h3>
+    <ul>
+        <li>Ispravljena promjena emaila za korisnika</li>
+    </ul>
+    <h3>0.19.3</h3>
+    <ul>
+        <li>Ispravljen problem s prikazom u Internet Explorer 11 na intranetu (Compatibility mode)</li>
+    </ul>
+    <h3>0.19.2</h3>
+    <ul>
+        <li>Admin: Ispravljeno - Prikaz u Internet Explorer 11</li>
+    </ul>
+    <h3>0.19.1</h3>
+    <ul>
+        <li>Admin: Ispravljeno - Slanje email poruke korisniku za zaboravljenu lozinku</li>
+    </ul>
+    <h3>0.19.0</h3>
+    <ul>
+        <li>Admin: Ispravljeno - Dodavanje korisnika u već aktivnu edukaciju dodijeljuje obavijesti i šalje email poruku</li>
+        <li>App: Ispravljeno - Polaganje edukacije nije radilo ako korisnik nije niti u jednoj roli</li>
+    </ul>
+    <h3>0.18.0</h3>
+    <ul>
+        <li>Admin: Izmijenjeno dodavanje korisnika: dodan email, domensko ime i šifra</li>
+    </ul>
+    <h3>0.17.0</h3>
+    <ul>
+        <li>Admin: Ispravljeni linkovi u poslanim emailovima</li>
+        <li>App: Prikaz obavijesti za edukaciju se miče nakon rješavanja edukacije</li>
+    </ul>
+    <h3>0.16.0</h3>
+    <ul>
+        <li>Admin: Korisnik može uću u aplikaciju sa svojim domenskim accountom</li>
+        <li>Admin: U odabiru edukacije se vidi status</li>
+    </ul>
+    <h3>0.15.8</h3>
+    <ul>
+        <li>App: Dorađen prikaz obavijesti na početnom ekranu</li>
+    </ul>
+    <h3>0.15.7</h3>
+    <ul>
+        <li>App: Ispravljen prikaz notifikacija nakon ulaska u edukaciju</li>
+    </ul>
+    <h3>0.15.6</h3>
+    <ul>
+        <li>Admin: Aktivirano slanje email poruke korisniku nakon aktiviranja edukacije</li>
+    </ul>
+    <h3>0.15.5</h3>
+    <ul>
+        <li>Admin: Ispravljeni prikazi izvještaja</li>
+    </ul>
+    <h3>0.15.4</h3>
+    <ul>
+        <li>Admin: Ispravljeno - prikazivao sve korisnike a ne samo one u edukaciji</li>
+        <li>Admin: Tekst 'Položena' promijenjen u 'Riješena'</li>
+    </ul>
+    <h3>0.15.3</h3>
+    <ul>
+        <li>App: Ispravljeno da korisnik u listi edukacija više ne vidi edukacije u pripremi</li>
+        <li>User: Dorađena promjena lozinke za korisnika</li>
+    </ul>
+    <h3>0.15.2</h3>
+    <ul>
+        <li>Admin: Ispravljeno dodavanje korisnika u edukaciju - 'Označi sve' označavalo sve podatke, bez obzira na filter</li>
+    </ul>
+    <h3>0.15.1</h3>
+    <ul>
+        <li>Admin: U dodavanje korisnika za edukaciju omogućen odabir aktivne edukacije</li>
+        <li>Admin: Ispravljeno odabiranje edukacije u izvještajima</li>
+        <li>Admin: Ispravljen prikaz dupliciranih odjela</li>
+    </ul>
+    <h3>0.15.0</h3>
+    <ul>
+        <li>Admin: Dodano kopiranje edukacije</li>
+        <li>Admin: Dodana opcija Reporti -> Edukacije po odjelu</li>
+        <li>Admin: Dodana opcija Reporti -> Edukacije po regiji</li>
+    </ul>
+    <h3>0.14.0</h3>
+    <ul>
+        <li>Admin: Dodan izvještaj Zbirni report po korisniku</li>
+    </ul>
+    <h3>0.13.0</h3>
+    <ul>
+        <li>Admin: Dodavanje korisnika bez email adrese</li>
+    </ul>
+    <h3>0.12.0</h3>
+    <ul>
+        <li>Admin: Dodana opcija Edukacije -> Korisnici - pregled</li>
+    </ul>
+    <h3>0.11.0</h3>
+    <ul>
+        <li>Admin: Dodana opcija Edukacije -> Prilozi</li>
+    </ul>
+    <h3>0.10.1</h3>
+    <ul>
+        <li>Admin: Dodan izvještaj Zbirni report po edukaciji</li>
+    </ul>
+    <h3>0.10.0</h3>
+    <ul>
+        <li>Admin: Dodana opcija Audit -> Događaji</li>
+        <li>Admin: Dodana opcija Reporti -> Edukacije po korisniku</li>
+        <li>Admin: Dodano izvještaj edukacije za korisnika</li>
+        <li>Admin: U opciji Reporti -> Riješene edukacije dodan button 'Ispis'</li>
+        <li>App: U pregledu profilnih podataka zabranjena promjena regije, odjela i radnog mjesta</li>
+    </ul>
+</section>

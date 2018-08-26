@@ -1,0 +1,24 @@
+﻿@using AdventureWorks.Web.Helpers.Settings
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <title>@AppSettings.AppName | @ViewBag.Title</title>
+
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/css/fonts/font-awesome/css/css")
+    @Styles.Render("~/Content/adminLte")
+    @Styles.Render("~/Content/app")
+</head>
+<body class="hold-transition login-page">
+@RenderBody()
+
+@Scripts.Render("~/bundles/jQuery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/adminLte")
+@Scripts.Render("~/bundles/appLib")
+</body>
+</html>

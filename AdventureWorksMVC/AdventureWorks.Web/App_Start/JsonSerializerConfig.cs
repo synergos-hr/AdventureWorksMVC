@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using Newtonsoft.Json;
 
-namespace AdventureWorksMVC
+namespace AdventureWorks.Web
 {
     public static class JsonSerializerConfig
     {

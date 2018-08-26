@@ -4,9 +4,9 @@
                 ? (List<BootstrapAlert>)TempData[BootstrapAlert.TempDataKey]
                 : new List<BootstrapAlert>();
 
-    if (alerts.Any())
+    if (alerts.Count > 0)
     {
-        @*<hr />*@
+        <div id="boostrap-alert-top"></div>
     }
 
     foreach (var alert in alerts)

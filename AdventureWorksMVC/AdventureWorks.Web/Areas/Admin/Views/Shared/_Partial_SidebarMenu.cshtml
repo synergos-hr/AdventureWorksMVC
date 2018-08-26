@@ -1,6 +1,9 @@
-﻿@using AdventureWorks.Web.Models.Menu
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Models.Menu
 <ul class="sidebar-menu" data-widget="tree" data-api="tree" data-accordion=0>
     @*<li class="header">@Labels.MenuHeader</li>*@
+
+    <li><a href="@Url.Action("Index", "Home", new { Area = "Store" })"><i class="fa fa-arrow-right"></i> @Labels.FrontEnd</a></li>
 
     @foreach (MenuItem menuItem in Model.MenuItems)
     {

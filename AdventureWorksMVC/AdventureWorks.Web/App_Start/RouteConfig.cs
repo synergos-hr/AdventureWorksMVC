@@ -1,13 +1,15 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace AdventureWorksMVC
+namespace AdventureWorks.Web
 {
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            // MVC Routing
 
             routes.MapRoute(
                 name: "Default",
