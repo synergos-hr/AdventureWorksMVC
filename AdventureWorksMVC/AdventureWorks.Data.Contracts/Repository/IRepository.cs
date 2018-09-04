@@ -8,14 +8,18 @@ namespace AdventureWorks.Data.Contracts.Repository
         where TEntity : class
         where TModel : class
     {
-        void SetUserId(int userId);
+        void SetActiveUser(int userId, string userName);
+
         IEnumerable<TEntity> GetAll();
         IQueryable<TEntity> Query();
         TEntity GetById(object id);
-        TModel GetModelById(object id);
         void Insert(TEntity entity);
         void Update(TEntity entity);
         TEntity Delete(TEntity entity);
+
+        TModel GetModelById(object id);
+        IEnumerable<TModel> ListModels(string defaultSort);
+
         GridResult<TModel> GridList(GridRequest request, string defaultSort);
     }
 }

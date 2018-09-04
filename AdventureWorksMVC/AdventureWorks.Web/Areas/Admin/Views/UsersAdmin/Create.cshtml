@@ -1,0 +1,144 @@
+﻿@using AdventureWorks.Model.ViewModels
+@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@model AdventureWorks.Web.Models.ViewModels.CreateUserViewModel
+@{
+    ViewBag.Title = Labels.NewUser;
+}
+
+<style>
+    ul.list-roles {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<section class="content-header">
+    <h1>@ViewBag.Title <i class="fa fa-spinner fa-spin wait-loading-window"></i></h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> @Labels.Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="well display-after-load">
+        @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal view-form", role = "form", id = "form-user-create" }))
+        {
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="form-horizontal form-widgets col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.UserName</label>
+                        </div>
+                        <div data-container-for="UserName" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="UserName" required="required" data-bind="value: UserName, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.Email</label>
+                        </div>
+                        <div data-container-for="Email" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="Email" required="required" data-bind="value: Email, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.Password</label>
+                        </div>
+                        <div data-container-for="Password" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="Password" required="required" data-bind="value: Password, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.ConfirmPassword</label>
+                        </div>
+                        <div data-container-for="ConfirmPassword" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="ConfirmPassword" required="required" data-bind="value: ConfirmPassword, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Fields.FirstName</label>
+                        </div>
+                        <div data-container-for="FirstName" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="FirstName" required="required" data-bind="value: FirstName, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Fields.LastName</label>
+                        </div>
+                        <div data-container-for="LastName" class="col-sm-9">
+                            <input type="text" class="k-input k-textbox" name="LastName" required="required" data-bind="value: LastName, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.Gender</label>
+                        </div>
+                        <div data-container-for="Gender" class="col-sm-9">
+                            <input name="Gender" required="required" data-bind="value: Gender, disabled: isViewDisabled" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label>@Labels.SendEmailToUser</label>
+                        </div>
+                        <div data-container-for="SendEmailToUser" class="col-sm-9">
+                            <input name="SendEmailToUser" type="checkbox" value="true" data-bind="checked: SendEmailToUser" data-type="boolean" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal form-widgets col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <h4>@Labels.UserRoles</h4>
+                        <ul class="list-roles">
+                            @for (var i = 0; i < Model.RolesList.Count(); i++)
+                            {
+                                UserRolesViewModel role = Model.RolesList[i];
+
+                                if (role.RoleName == "SuperAdmin")
+                                {
+                                    continue;
+                                }
+
+                                <li>
+                                    @Html.HiddenFor(model => model.RolesList[i].RoleId)
+                                    @Html.HiddenFor(model => model.RolesList[i].RoleName)
+                                    @Html.CheckBoxFor(model => model.RolesList[i].Selected)
+                                    @Html.LabelFor(model => model.RolesList[i].Selected, role.RoleNameTranslated)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="k-edit-buttons k-state-default">
+                <button role="button" class="k-button k-button-icontext k-primary" data-bind="events: { click: save }, visible: isViewDisabled === false"><span class="k-icon k-i-check"></span>Dodaj</button>
+                @*<button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>Odustani</button>*@
+            </div>
+
+            <input type="hidden" data-val="true" name="userId" data-val-required="UserId field is required." data-bind="value: userId" />
+        }
+    </div>
+</section>
+
+@section scriptsKendo {
+    @*@Html.RenderKendoScripts(new[] { KendoScriptsHelper.KendoItem.DropDownList, KendoScriptsHelper.KendoItem.ComboBox, KendoScriptsHelper.KendoItem.Validator })*@
+}
+@section scripts {
+    <script type="text/javascript">
+        Synergos.Models.ViewModel = @Html.Raw(Json.Encode(Model));
+    </script>
+
+    @Scripts.Render("~/Areas/" + ViewContext.RouteData.DataTokens["area"] + "/Views/" + ViewContext.RouteData.Values["controller"] + "/" + ViewContext.RouteData.Values["action"] + ".js?version=" + AppSettings.AppVersion)
+}

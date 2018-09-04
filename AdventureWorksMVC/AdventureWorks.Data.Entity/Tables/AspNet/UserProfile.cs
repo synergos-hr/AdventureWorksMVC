@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdventureWorks.Data.Entity.Tables
+namespace AdventureWorks.Data.Entity.Tables.AspNet
 {
     public partial class UserProfile
     {
@@ -21,9 +21,11 @@ namespace AdventureWorks.Data.Entity.Tables
         [DefaultValue("F")]
         public string Gender { get; set; }
 
+        [StringLength(250)]
+        public string PictureFileName { get; set; }
+
+        public bool? TestUser { get; set; }
+
         public virtual AspNetUser AspNetUser { get; set; }
-
-        public string FullName { get { return FirstName + " " + LastName; } }
-
     }
 }

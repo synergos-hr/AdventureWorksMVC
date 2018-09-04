@@ -123,6 +123,7 @@
     <Compile Include="Tables\Sales\Store.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\HumanResources\vEmployeeDepartment.cs" />
+    <Compile Include="Views\Users\vUser.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

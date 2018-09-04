@@ -13,11 +13,16 @@ namespace AdventureWorks.Data.HelpersKendo
 
         internal static SortFilter FromRequest<T>(GridRequest request, string defaultSortFieldName)
         {
-            SortFilter sortFilter = new SortFilter();
+            if (!(defaultSortFieldName.ToLower().EndsWith(" asc") || defaultSortFieldName.ToLower().EndsWith(" desc")))
+                defaultSortFieldName += " asc";
 
-            sortFilter.Sort = (request.Sort != null && request.Sort.Any()) ? DataSortFromGrid.GetOrderClause(request.Sort) : string.Format("{0} asc", defaultSortFieldName);
-
-            sortFilter.Filter = DataFilterFromGrid.GetWhereClause<T>(request.Filter);
+            SortFilter sortFilter = new SortFilter
+            {
+                Sort = (request.Sort != null && request.Sort.Any())
+                    ? DataSortFromGrid.GetOrderClause(request.Sort)
+                    : $"{defaultSortFieldName}",
+                Filter = DataFilterFromGrid.GetWhereClause<T>(request.Filter)
+            };
 
             return sortFilter;
         }

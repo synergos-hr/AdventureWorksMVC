@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
 using AdventureWorks.Data.Entity.Tables;
+using AdventureWorks.Data.Entity.Tables.AspNet;
+using AdventureWorks.Data.Entity.Views.Users;
 
 namespace AdventureWorks.Data.Entity.Configuration
 {
@@ -7,10 +9,22 @@ namespace AdventureWorks.Data.Entity.Configuration
     {
         public static void ConfigureTables(DbModelBuilder modelBuilder)
         {
+            #region AspNet
+
+            #region AspNetRole
+
             modelBuilder.Entity<AspNetRole>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+            #endregion
+
+            #region AspNetUser
+
+            modelBuilder.Entity<AspNetUser>()
+                .HasOptional(e => e.UserProfile)
+                .WithRequired(e => e.AspNetUser);
 
             modelBuilder.Entity<AspNetUser>()
                 .HasMany(e => e.AspNetUserClaims)
@@ -22,14 +36,19 @@ namespace AdventureWorks.Data.Entity.Configuration
                 .WithRequired(e => e.AspNetUser)
                 .HasForeignKey(e => e.UserId);
 
-            modelBuilder.Entity<AspNetUser>()
-                .HasOptional(e => e.UserProfile)
-                .WithRequired(e => e.AspNetUser);
+
+            #endregion
+
+            #region UserProfile
 
             modelBuilder.Entity<UserProfile>()
                 .Property(e => e.Gender)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            #endregion
+
+            #endregion
 
             modelBuilder.Entity<Department>()
                 .HasMany(e => e.EmployeeDepartmentHistories)
@@ -764,6 +783,15 @@ namespace AdventureWorks.Data.Entity.Configuration
             //modelBuilder.Entity<vStoreWithDemographic>()
             //    .Property(e => e.AnnualRevenue)
             //    .HasPrecision(19, 4);
+
+            #region Users
+
+            modelBuilder.Entity<vUser>()
+                .Property(e => e.Gender)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            #endregion
         }
     }
 }

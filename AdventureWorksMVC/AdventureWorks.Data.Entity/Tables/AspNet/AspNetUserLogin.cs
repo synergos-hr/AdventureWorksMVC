@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdventureWorks.Data.Entity.Tables
+namespace AdventureWorks.Data.Entity.Tables.AspNet
 {
     public partial class AspNetUserLogin
     {

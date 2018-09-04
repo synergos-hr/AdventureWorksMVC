@@ -131,6 +131,14 @@ namespace AdventureWorks.Data.HelpersKendo
                     expression = string.Format("{0} < {1}", field, value);
                     break;
 
+                case "notnull":
+                    expression = string.Format("{0} != null", field);
+                    break;
+
+                case "null":
+                    expression = string.Format("{0} == null", field);
+                    break;
+
                 default:
                     return "";
             }

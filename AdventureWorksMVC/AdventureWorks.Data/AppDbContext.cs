@@ -2,12 +2,13 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using AutoMapper;
 using NLog;
 using AdventureWorks.Data.Entity.Configuration;
 using AdventureWorks.Data.Entity.Tables;
 using AdventureWorks.Data.Entity.Interfaces;
+using AdventureWorks.Data.Entity.Tables.AspNet;
 using AdventureWorks.Data.Entity.Views;
+using AdventureWorks.Data.Entity.Views.Users;
 
 namespace AdventureWorks.Data
 {
@@ -15,12 +16,8 @@ namespace AdventureWorks.Data
     {
         #region Properties
 
-        private int _userId;
-        public int UserId
-        {
-            get { return _userId; }
-            set { _userId = value; }
-        }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
 
         protected readonly Logger Log = LogManager.GetCurrentClassLogger();
 
@@ -33,14 +30,20 @@ namespace AdventureWorks.Data
 
         #region DbSet
 
+        #region AspNet
+
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
+
+        #endregion
+
         //public virtual DbSet<AWBuildVersion> AWBuildVersions { get; set; }
         //public virtual DbSet<DatabaseLog> DatabaseLogs { get; set; }
         //public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
-        public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set; }
@@ -132,6 +135,8 @@ namespace AdventureWorks.Data
         //public virtual DbSet<vStoreWithContact> vStoreWithContacts { get; set; }
         //public virtual DbSet<vStoreWithDemographic> vStoreWithDemographics { get; set; }
 
+        public virtual DbSet<vUser> vUsers { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -142,7 +147,7 @@ namespace AdventureWorks.Data
 
             EntitiesConfiguration.ConfigureViews(modelBuilder);
 
-            MapperConfig.RegisterMaps();
+            //MapperConfig.RegisterMaps();
         }
 
         public override int SaveChanges()
@@ -162,20 +167,22 @@ namespace AdventureWorks.Data
             catch (DbUpdateException ex)
             {
                 Log.Error(ex);
-                throw ex;
+                throw;
             }
             catch (Exception e)
             {
                 Log.Error(e);
 
+                if (e.InnerException == null)
+                    throw;
+
                 Exception ex = e;
 
                 if (ex.Message == "An error occurred while updating the entries. See the inner exception for details" && e.InnerException != null)
-                    ex = ex.InnerException;
-                //if (ex.Message == "An error occurred while updating the entries. See the inner exception for details" && e.InnerException != null)
-                //    ex = ex.InnerException;
+                    ex = e.InnerException;
+
                 if (ex.Message.StartsWith("The DELETE statement conflicted with the REFERENCE constraint"))
-                    throw new Exception("Brisanje nije moguće jer postoje povezani podaci!");
+                    throw new Exception("Delete failed: linked data found!");
 
                 throw ex;
             }
@@ -189,14 +196,18 @@ namespace AdventureWorks.Data
             }
             catch (Exception e)
             {
+                Log.Error(e);
+
+                if (e.InnerException == null)
+                    throw;
+
                 Exception ex = e;
 
                 if (ex.Message == "An error occurred while updating the entries. See the inner exception for details" && e.InnerException != null)
-                    ex = ex.InnerException;
-                //if (ex.Message == "An error occurred while updating the entries. See the inner exception for details" && e.InnerException != null)
-                //    ex = ex.InnerException;
+                    ex = e.InnerException;
+
                 if (ex.Message.StartsWith("The DELETE statement conflicted with the REFERENCE constraint"))
-                    throw new Exception("Brisanje nije moguće jer postoje povezani podaci!");
+                    throw new Exception("Delete failed: linked data found!");
 
                 throw ex;
             }

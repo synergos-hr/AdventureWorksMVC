@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
-namespace AdventureWorks.Data.Entity.Tables
+namespace AdventureWorks.Data.Entity.Tables.AspNet
 {
     public partial class AspNetUser
     {
@@ -58,7 +59,10 @@ namespace AdventureWorks.Data.Entity.Tables
 
         public virtual UserProfile UserProfile { get; set; }
 
-		[NotMapped]
-		public bool IsDisabled { get { return LockoutEnabled == true && LockoutEndDateUtc != null && LockoutEndDateUtc > DateTime.Now; } }
-	}
+        [NotMapped]
+        public string RolesTxt { get { return string.Join(",", AspNetRoles.Select(x => x.Name)); } }
+
+        [NotMapped]
+		public bool IsDisabled => LockoutEnabled && LockoutEndDateUtc != null && LockoutEndDateUtc > DateTime.Now;
+    }
 }

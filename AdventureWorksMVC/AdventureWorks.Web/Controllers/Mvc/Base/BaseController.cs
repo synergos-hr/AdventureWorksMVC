@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using NLog;
 using AdventureWorks.Web.Helpers.Bootstrap;
 
 namespace AdventureWorks.Web.Controllers.Mvc.Base
 {
     public class BaseController : Controller
     {
-        //protected readonly Logger Log = LogManager.GetCurrentClassLogger();
+        protected readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         protected void AlertSuccess(string message, bool dismissable = false)
         {

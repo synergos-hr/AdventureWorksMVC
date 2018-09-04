@@ -13,12 +13,13 @@
     @Styles.Render("~/Content/adminLte")
     @Styles.Render("~/Content/app")
 </head>
-<body class="hold-transition login-page">
+<body>
 @RenderBody()
 
 @Scripts.Render("~/bundles/jQuery")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/adminLte")
 @Scripts.Render("~/bundles/appLib")
+@RenderSection("scripts", required: false)
 </body>
 </html>

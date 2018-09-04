@@ -1,0 +1,58 @@
+﻿@using AdventureWorks.Resources
+@model AdventureWorks.Model.Account.Authorization.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+}
+            <p class="login-box-msg">@Messages.Login_LocalAccount</p>
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                if (!string.IsNullOrEmpty(ViewBag.OptionalMessage))
+                {
+                    <div class="validation-summary-errors text-danger">
+                        <ul>
+                            <li>@ViewBag.OptionalMessage</li>
+                        </ul>
+                    </div>
+                }
+
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = Fields.UserName })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = Fields.Password })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                @*<div class="row">
+                    <div class="col-md-6">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                    </div>
+                </div>*@
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn bg-primary btn-block">@Labels.Login</button>
+                    </div>
+                </div>
+            }
+
+            <div class="footer">
+                <p>@Html.ActionLink(Messages.Login_ForgotPassword, "ForgotPassword", "Account")</p>
+                @*@Html.ActionLink(Messages.Login_Register, "Register", "Account", new { @class = "text-center" })*@
+                @*<a href="@Url.Action("ReportProblem", "Home" )" class="btn btn-default btn-primary" style="width: 100%;">@Labels.ReportProblem</a>*@
+                @*<p>@Html.ActionLink(Labels.ReportProblem, "ReportProblem", "HelpDesk")</p>*@
+            </div>

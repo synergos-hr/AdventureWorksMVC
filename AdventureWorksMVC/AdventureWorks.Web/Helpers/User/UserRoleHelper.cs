@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Web;
+using AdventureWorks.Web.Helpers.Singletons;
 
 namespace AdventureWorks.Web.Helpers.User
 {
@@ -46,26 +48,22 @@ namespace AdventureWorks.Web.Helpers.User
 
         public static string GetRolesTxt()
         {
-            return "-";
-            //return UserRolesSingleton.RolesTxt(UserProfileHelper.GetUserId());
+            return UserRolesSingleton.RolesTxt(UserProfileHelper.GetUserId());
         }
 
         public static bool IsSuperAdmin()
         {
-            return false;
-            //return HttpContext.Current.User.IsInRole(Role.SuperAdmin);
+            return HttpContext.Current.User.IsInRole(Role.SuperAdmin);
         }
 
         public static bool IsAdmin()
         {
-            return false;
-            //return IsSuperAdmin() || HttpContext.Current.User.IsInRole(Role.Admin);
+            return IsSuperAdmin() || HttpContext.Current.User.IsInRole(Role.Admin);
         }
 
         public static bool IsManager()
         {
-            return false;
-            //return IsAdmin() || HttpContext.Current.User.IsInRole(Role.Manager);
+            return IsAdmin() || HttpContext.Current.User.IsInRole(Role.Manager);
         }
     }
 }

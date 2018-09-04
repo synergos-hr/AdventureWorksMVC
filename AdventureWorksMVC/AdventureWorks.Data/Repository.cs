@@ -4,26 +4,23 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using AutoMapper;
-using NLog;
 using AdventureWorks.Data.Contracts.Repository;
 using AdventureWorks.Data.Exceptions;
 using AdventureWorks.Data.Helpers;
 using AdventureWorks.Data.HelpersKendo;
+using AdventureWorks.Data.Log;
 using AdventureWorks.Model.Kendo;
 
 namespace AdventureWorks.Data
 {
-    public class Repository<TEntity, TModel> : IRepository<TEntity, TModel>
+    public class Repository<TEntity, TModel> : RepositoryBase, IRepository<TEntity, TModel>
         where TEntity : class
         where TModel : class
     {
-        protected AppDbContext Context = new AppDbContext();
-
-        protected readonly Logger Log = LogManager.GetCurrentClassLogger();
-
-        public void SetUserId(int userId)
+        public void SetActiveUser(int userId, string userName)
         {
             Context.UserId = userId;
+            Context.UserName = userName;
         }
 
         public virtual IEnumerable<TEntity> GetAll()
@@ -41,21 +38,17 @@ namespace AdventureWorks.Data
             return Context.Set<TEntity>().Find(id);
         }
 
-        public virtual TModel GetModelById(object id)
-        {
-            var model = Context.Set<TEntity>().Find(id);
-
-            var viewModel = Mapper.Map<TEntity, TModel>(model);
-
-            return viewModel;
-        }
-
         public virtual void Insert(TEntity entity)
         {
             try
             {
+                Context.Database.Log = DatabaseLog.Write;
+
                 Context.Set<TEntity>().Add(entity);
-                Context.SaveChanges();
+
+                int count = Context.SaveChanges();
+
+                Log.Trace($"Inserted [{entity.GetType()}]: {count}");
             }
             catch (DbEntityValidationException ex)
             {
@@ -82,16 +75,44 @@ namespace AdventureWorks.Data
         {
             if (entity != null)
                 Context.Entry(entity).State = EntityState.Deleted;
+
             Context.SaveChanges();
 
             return entity;
+        }
+
+        public virtual TModel GetModelById(object id)
+        {
+            TEntity model = Context.Set<TEntity>().Find(id);
+
+            TModel viewModel = Mapper.Map<TEntity, TModel>(model);
+
+            return viewModel;
+        }
+
+        public virtual IEnumerable<TModel> ListModels(string defaultSort)
+        {
+            try
+            {
+                IQueryable<TEntity> query = GetQuery();
+
+                if (!string.IsNullOrEmpty(defaultSort))
+                    query = query.OrderBy(defaultSort);
+
+                return GetListModel(new ListParams(defaultSort), ref query);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                throw;
+            }
         }
 
         public virtual GridResult<TModel> GridList(GridRequest request, string defaultSort)
         {
             try
             {
-                IQueryable<TEntity> query = GridListQuery();
+                IQueryable<TEntity> query = GetQuery();
 
                 GridSortFilter.SortFilter sortFilter = GridSortFilter.FromRequest<TModel>(request, defaultSort);
 
@@ -100,20 +121,7 @@ namespace AdventureWorks.Data
 
                 string filter = sortFilter.Filter;
 
-                string customFilter = GridListCustomFilter(request);
-
-                if (!string.IsNullOrEmpty(customFilter))
-                    filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + customFilter;
-
-                if (!string.IsNullOrEmpty(filter))
-                    query = query.Where(filter);
-
-                var page = query
-                    .Skip(request.Skip)
-                    .Take(request.Take)
-                    .ToList();
-
-                var pageViewModel = page.Select(x => Mapper.Map<TEntity, TModel>(x)).ToList();
+                List<TModel> pageViewModel = GetListModel(new ListParams(request, defaultSort, filter), ref query);
 
                 GridResult<TModel> result = new GridResult<TModel>
                 {
@@ -127,36 +135,75 @@ namespace AdventureWorks.Data
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return new GridResult<TModel> { Status = "error", Message = "Greška: " + ex.Message };
+                return new GridResult<TModel> { Status = "error", Message = ex.Message };
             }
         }
 
-        protected virtual IQueryable<TEntity> GridListQuery()
+        protected List<TModel> GetListModel(ListParams listParams)
+        {
+            IQueryable<TEntity> query = GetQuery();
+
+            query = query.OrderBy(listParams.DefaultSort);
+
+            return GetListModel(listParams, ref query);
+        }
+
+        protected List<TModel> GetListModel(ListParams listParams, ref IQueryable<TEntity> query)
+        {
+            List<TEntity> page = GetList(listParams, ref query);
+
+            return page.Select(Mapper.Map<TEntity, TModel>).ToList();
+        }
+
+        protected List<TEntity> GetList(ListParams listParams, ref IQueryable<TEntity> query)
+        {
+            string customFilter = ParseCustomFilters(listParams.CustomFilters);
+
+            if (!string.IsNullOrEmpty(customFilter))
+                listParams.Filter += (string.IsNullOrEmpty(listParams.Filter) ? "" : " AND ") + customFilter;
+
+            if (!string.IsNullOrEmpty(listParams.Filter))
+                query = query.Where(listParams.Filter);
+
+            if (listParams.Skip != 0 || listParams.Take != 0)
+            {
+                return query
+                    .Skip(listParams.Skip)
+                    .Take(listParams.Take)
+                    .ToList();
+            }
+
+            return query.ToList();
+        }
+
+        protected virtual IQueryable<TEntity> GetQuery()
         {
             IQueryable<TEntity> query = from x in Context.Set<TEntity>()
                                         select x;
 
+            query = GetQueryInclude(query);
+
             return query;
         }
 
-        protected virtual string GridListCustomFilter(GridRequest request)
+        protected virtual IQueryable<TEntity> GetQueryInclude(IQueryable<TEntity> query)
         {
-            if (request.ExtraFilters == null)
+            return query;
+        }
+
+        protected virtual string ParseCustomFilters(IDictionary<string, string> customFilters)
+        {
+            if (customFilters == null)
                 return "";
 
             string filter = "";
 
-            if (request.ExtraFilters.ContainsKey("UserId") && !string.IsNullOrEmpty(Convert.ToString(request.ExtraFilters["UserId"])))
-                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + string.Format("UserId = {0}", request.ExtraFilters["UserId"]);
+            filter = filter.AddCustomFilterKeyInteger(customFilters, "UserId");
+
+            filter = filter.AddCustomFilterKeyInteger(customFilters, "AspNetUserId");
 
             return filter;
         }
-
-        //public static void AddCustomFilterKeyInteger(this string filter, GridRequest request, string keyName)
-        //{
-        //    if (request.ExtraFilters.ContainsKey("SubcategoryID") && !string.IsNullOrEmpty(Convert.ToString(request.ExtraFilters["SubcategoryID"])))
-        //        filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + string.Format("SubcategoryID = {0}", request.ExtraFilters["SubcategoryID"]);
-        //}
     }
 
     public static class RepositoryExtensions
@@ -169,7 +216,20 @@ namespace AdventureWorks.Data
         public static string AddExtraFilterKeyInteger(this string filter, GridRequest request, string keyName, string fieldName)
         {
             if (request.ExtraFilters.ContainsKey(keyName) && !string.IsNullOrEmpty(Convert.ToString(request.ExtraFilters[keyName])))
-                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + string.Format("{0} = {1}", fieldName, request.ExtraFilters[keyName]);
+                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + $"{fieldName} = {request.ExtraFilters[keyName]}";
+
+            return filter;
+        }
+
+        public static string AddCustomFilterKeyInteger(this string filter, IDictionary<string, string> customFilters, string keyName)
+        {
+            return AddCustomFilterKeyInteger(filter, customFilters, keyName, keyName);
+        }
+
+        public static string AddCustomFilterKeyInteger(this string filter, IDictionary<string, string> customFilters, string keyName, string fieldName)
+        {
+            if (customFilters.ContainsKey(keyName) && !string.IsNullOrEmpty(Convert.ToString(customFilters[keyName])))
+                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + $"{fieldName} = {customFilters[keyName]}";
 
             return filter;
         }
@@ -182,7 +242,20 @@ namespace AdventureWorks.Data
         public static string AddExtraFilterKeyString(this string filter, GridRequest request, string keyName, string fieldName)
         {
             if (request.ExtraFilters.ContainsKey(keyName) && !string.IsNullOrEmpty(Convert.ToString(request.ExtraFilters[keyName])))
-                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + string.Format("{0} = '{1}'", fieldName, request.ExtraFilters[keyName]);
+                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + $"{fieldName} = '{request.ExtraFilters[keyName]}'";
+
+            return filter;
+        }
+
+        public static string AddCustomFilterKeyString(this string filter, IDictionary<string, string> customFilters, string keyName)
+        {
+            return AddCustomFilterKeyString(filter, customFilters, keyName, keyName);
+        }
+
+        public static string AddCustomFilterKeyString(this string filter, IDictionary<string, string> customFilters, string keyName, string fieldName)
+        {
+            if (customFilters.ContainsKey(keyName) && !string.IsNullOrEmpty(Convert.ToString(customFilters[keyName])))
+                filter += (string.IsNullOrEmpty(filter) ? "" : " AND ") + $"{fieldName} = '{customFilters[keyName]}'";
 
             return filter;
         }

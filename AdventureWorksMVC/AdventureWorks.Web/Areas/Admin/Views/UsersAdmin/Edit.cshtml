@@ -1,0 +1,82 @@
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@model AdventureWorks.Web.Models.ViewModels.EditUserViewModel
+@{
+    ViewBag.Title = @Labels.User;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title <i class="fa fa-spinner fa-spin wait-loading-window"></i></h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> @Labels.Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="well display-after-load">
+        @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal view-form", role = "form", id = "form-user-edit" }))
+        {
+        <div class="row">
+            <div class="form-horizontal form-widgets col-sm-12 col-md-6">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label>@Labels.Email</label>
+                    </div>
+                    <div data-container-for="Email" class="col-sm-9">
+                        <input type="text" class="k-input k-textbox" name="Email" data-bind="value: Email, disabled: true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label>@Fields.FirstName</label>
+                    </div>
+                    <div data-container-for="FirstName" class="col-sm-9">
+                        <input type="text" class="k-input k-textbox" name="FirstName" required="required" data-bind="value: FirstName, disabled: isViewDisabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label>@Fields.LastName</label>
+                    </div>
+                    <div data-container-for="LastName" class="col-sm-9">
+                        <input type="text" class="k-input k-textbox" name="LastName" required="required" data-bind="value: LastName, disabled: isViewDisabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label>@Labels.Gender</label>
+                    </div>
+                    <div data-container-for="Gender" class="col-sm-9">
+                        <input name="Gender" data-bind="value: Gender, disabled: isViewDisabled" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal form-widgets col-sm-12 col-md-6">
+            </div>
+        </div>
+
+        <div class="k-edit-buttons k-state-default">
+            <button role="button" class="k-button k-button-icontext k-default pull-left" data-bind="events: { click: sendTestEmail }, visible: isViewDisabled === false"><span class="k-icon k-i-email"></span>@Labels.SendTestEmail</button>
+
+            <button role="button" class="k-button k-button-icontext k-primary" data-bind="events: { click: save }, visible: isViewDisabled === false"><span class="k-icon k-i-check"></span>@Labels.Save</button>
+            @*<button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>@Labels.Cancel</button>*@
+        </div>
+
+        <input type="hidden" data-val="true" name="UserId" data-val-required="UserId field is required." data-bind="value: UserId" />
+        }
+    </div>
+</section>
+
+@section scriptsKendo {
+    @*@Html.RenderKendoScripts(new[] { KendoScriptsHelper.KendoItem.DropDownList, KendoScriptsHelper.KendoItem.ComboBox, KendoScriptsHelper.KendoItem.Validator })*@
+}
+@section scripts {
+    <script type="text/javascript">
+        var viewModel = @Html.Raw(Json.Encode(Model));
+    </script>
+
+    @Scripts.Render("~/Areas/" + ViewContext.RouteData.DataTokens["area"] + "/Views/" + ViewContext.RouteData.Values["controller"] + "/" + ViewContext.RouteData.Values["action"] + ".js?version=" + AppSettings.AppVersion)
+}

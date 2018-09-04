@@ -1,0 +1,54 @@
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@using AdventureWorks.Web.Helpers.User
+@{
+    ViewBag.Title = Labels.Roles;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title <i class="fa fa-spinner fa-spin wait-loading-window"></i></h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> @Labels.Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div id="grid"></div>
+
+    <div id="dialog-users" style="display: none"></div>
+</section>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar">
+    <div class="toolbar-actions">
+        @if (UserRoleHelper.IsSuperAdmin())
+        {
+        <button class="k-button k-button-icontext k-grid-add" name="create"><i class="fa fa-plus"></i> @Labels.Add</button>
+        <button class="k-button k-button-icontext k-grid-edit" name="edit"><i class="fa fa-edit"></i> @Labels.Edit</button>
+        <button class="k-button k-button-icontext k-grid-delete" name="delete"><i class="fa fa-trash-o"></i> @Labels.Delete</button>
+        }
+        <button class="k-button k-button-icontext" name="users"><i class="fa fa-users"></i> @Labels.Users</button>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-dialog-users">
+    <div class="box box-default">
+        <div class="box-body">
+            <b>@Labels.Role :</b> <span data-bind="text: DisplayName"></span>
+        </div>
+    </div>
+
+    <div id="grid-users"></div>
+
+    @*<div class="k-edit-buttons k-state-default">
+            <button role="button" class="k-button k-button-icontext" data-bind="events: { click: close }"><span class="k-icon k-i-cancel"></span>Izlaz</button>
+        </div>*@
+</script>
+
+@section scriptsKendo {
+    @*@Html.RenderKendoScripts(new[] { KendoScriptsHelper.KendoItem.Grid })*@
+}
+@section scripts {
+    @Scripts.Render("~/Areas/Admin/Views/RolesAdmin/Index.js?version=" + AppSettings.AppVersion)
+}

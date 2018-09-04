@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace AdventureWorksMVC
+namespace AdventureWorks.Web
 {
     public class XmlSerializerConfig
     {

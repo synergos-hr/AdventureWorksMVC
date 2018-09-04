@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using AdventureWorks.Data.Contracts.Repository;
@@ -12,26 +13,23 @@ namespace AdventureWorks.Data.Repository
 {
     public class RepositoryProducts : Repository<Product, ProductModel>, IRepositoryProducts
     {
-        protected override string GridListCustomFilter(GridRequest request)
+        protected override string ParseCustomFilters(IDictionary<string, string> customFilters)
         {
-            string filter = base.GridListCustomFilter(request);
+            string filter = base.ParseCustomFilters(customFilters);
 
-            if (request.ExtraFilters == null)
+            if (customFilters == null)
                 return filter;
 
-            filter = filter.AddExtraFilterKeyInteger(request, "SubcategoryID", "ProductSubcategoryID");
+            filter = filter.AddCustomFilterKeyInteger(customFilters, "SubcategoryID", "ProductSubcategoryID");
 
             return filter;
         }
 
         public ProductPhoto GetPhoto(int id)
         {
-            var primaryPhoto = Context.Set<ProductProductPhoto>().SingleOrDefault(x => x.ProductID == id && x.Primary == true);
+            var primaryPhoto = Context.Set<ProductProductPhoto>().SingleOrDefault(x => x.ProductID == id && x.Primary);
 
-            if (primaryPhoto == null)
-                return null;
-
-            return primaryPhoto.ProductPhoto;
+            return primaryPhoto?.ProductPhoto;
         }
 
         public virtual ListResult<ProductModel> ListFiltered(RequestProducts request)
@@ -65,7 +63,7 @@ namespace AdventureWorks.Data.Repository
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return new ListResult<ProductModel> { Status = "error", Message = "Greška: " + ex.Message };
+                return new ListResult<ProductModel> { Status = "error", Message = ex.Message };
             }
         }
     }

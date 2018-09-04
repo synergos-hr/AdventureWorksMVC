@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AdventureWorks.Data.Entity.Tables
+namespace AdventureWorks.Data.Entity.Tables.AspNet
 {
     public partial class AspNetUserClaim
     {

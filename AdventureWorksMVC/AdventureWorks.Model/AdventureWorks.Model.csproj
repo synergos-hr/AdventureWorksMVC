@@ -44,8 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Authorization\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Account\Authorization\ExternalLoginListViewModel.cs" />
+    <Compile Include="Account\Authorization\ForgotPasswordViewModel.cs" />
+    <Compile Include="Account\Authorization\LoginViewModel.cs" />
+    <Compile Include="Account\Authorization\RegisterViewModel.cs" />
+    <Compile Include="Account\Authorization\ResetPasswordViewModel.cs" />
+    <Compile Include="Account\Authorization\VerifyCodeViewModel.cs" />
+    <Compile Include="Account\Manage\AddPhoneNumberViewModel.cs" />
+    <Compile Include="Account\Manage\ChangePasswordViewModel.cs" />
+    <Compile Include="Account\Manage\SetEmailViewModel.cs" />
+    <Compile Include="Account\Manage\SetPasswordViewModel.cs" />
+    <Compile Include="Account\Manage\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="API\ErrorResult.cs" />
     <Compile Include="CustomFilters\FilterProducts.cs" />
+    <Compile Include="CustomRequests\SetUserRoleRequest.cs" />
+    <Compile Include="CustomRequests\UserIdRequest.cs" />
     <Compile Include="Kendo\CreateResult.cs" />
     <Compile Include="Kendo\GridRequest.cs" />
     <Compile Include="Kendo\GridRequestFilter.cs" />
@@ -61,10 +75,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UserProfileViewModel.cs" />
+    <Compile Include="ViewModels\UserRolesViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.Resources\AdventureWorks.Resources.csproj">
+      <Project>{5eddaaf2-46fd-48fc-a6f2-81f2c30041d9}</Project>
+      <Name>AdventureWorks.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

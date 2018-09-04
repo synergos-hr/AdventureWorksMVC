@@ -65,14 +65,21 @@
     <Compile Include="Helpers\DynamicQueryable.cs" />
     <Compile Include="Helpers\ExpressionParser.cs" />
     <Compile Include="Helpers\IQueryableUtil.cs" />
+    <Compile Include="Helpers\ListParams.cs" />
     <Compile Include="Helpers\ParseException.cs" />
     <Compile Include="Helpers\Signature.cs" />
+    <Compile Include="Log\DatabaseLog.cs" />
     <Compile Include="MapperConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="RepositoryBase.cs" />
+    <Compile Include="Repository\RepositoryAspNetRoles.cs" />
+    <Compile Include="Repository\RepositoryAspNetUsers.cs" />
+    <Compile Include="Repository\RepositoryAudits.cs" />
     <Compile Include="Repository\RepositoryEmployeeDepartment.cs" />
     <Compile Include="Repository\RepositoryEmployees.cs" />
     <Compile Include="Repository\RepositoryProducts.cs" />
+    <Compile Include="Repository\RepositoryUserProfiles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
+using AdventureWorks.Web.Helpers.User;
 
 namespace AdventureWorks.Web.Models.Menu
 {
@@ -39,29 +40,24 @@ namespace AdventureWorks.Web.Models.Menu
 
         private bool IsMenuItemAllowed(MenuItem item, IPrincipal principal)
         {
-            //bool allowed = false;
+            bool allowed = false;
 
-            //if (principal.IsInRole(UserRoleHelper.Role.SuperAdmin))
-            //{
-            //    allowed = true;
-            //}
-            //else
-            //{
-            //    foreach (var role in item.AllowedRoles.Split(','))
-            //    {
-            //        allowed = principal.IsInRole(role);
-
-            //        if (allowed)
-            //            break;
-            //    }
-            //}
-
-            //return allowed;
-
-            if (item.Controller == "RolesAdmin" || item.Controller == "UsersAdmin")
-                return false;
+            if (principal.IsInRole(UserRoleHelper.Role.SuperAdmin))
+            {
+                allowed = true;
+            }
             else
-                return true;
+            {
+                foreach (var role in item.AllowedRoles.Split(','))
+                {
+                    allowed = principal.IsInRole(role);
+
+                    if (allowed)
+                        break;
+                }
+            }
+
+            return allowed;
         }
 
         #endregion

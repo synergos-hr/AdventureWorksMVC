@@ -27,7 +27,7 @@ namespace AdventureWorks.Web.Controllers.API
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return new ListResult<ProductModel> { Status = "error", Message = "Greška: " + ex.Message };
+                return new ListResult<ProductModel> { Status = "error", Message = ex.Message };
             }
         }
     }

@@ -16,6 +16,7 @@ namespace AdventureWorks.Web.Helpers.Settings
 
         public static bool FakeEmailSend => Setting<bool>("FakeEmailSend");
 
+        public static string EMailProjectAddress => Setting<string>("EMailProjectAddress");
         public static string EMailFromAddress => Setting<string>("EMailFromAddress");
         public static string EMailFromName => Setting<string>("EMailFromName");
         public static string EMailHostName => Setting<string>("EMailHostName");

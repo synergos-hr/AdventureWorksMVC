@@ -120,8 +120,29 @@
   <data name="AccessDenied" xml:space="preserve">
     <value>Access to page denied</value>
   </data>
+  <data name="AccountLockout" xml:space="preserve">
+    <value>Lockout</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>ChangePassword</value>
+  </data>
+  <data name="ChangeUser" xml:space="preserve">
+    <value>ChangeUser</value>
+  </data>
+  <data name="EmailLink" xml:space="preserve">
+    <value>EmailLink</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
   </data>
   <data name="FrontEnd" xml:space="preserve">
     <value>FrontEnd</value>
@@ -129,13 +150,136 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>Page not found</value>
   </data>
+  <data name="PendingConfirmation" xml:space="preserve">
+    <value>Pending confirmation</value>
+  </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>Personal info</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="ReleaseNotes" xml:space="preserve">
     <value>Release notes</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password</value>
+  </data>
+  <data name="ReportProblem" xml:space="preserve">
+    <value>Report problem</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Change email</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Confirm email</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>New email</value>
+  </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>New user</value>
+  </data>
+  <data name="OldEmail" xml:space="preserve">
+    <value>Old email</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SendEmailToUser" xml:space="preserve">
+    <value>Send email to user</value>
+  </data>
+  <data name="SendTestEmail" xml:space="preserve">
+    <value>Sent test email</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="UserAddRole" xml:space="preserve">
+    <value>Add role</value>
+  </data>
+  <data name="UserLock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="UserRemoveRole" xml:space="preserve">
+    <value>Remove role</value>
+  </data>
+  <data name="UserRoles" xml:space="preserve">
+    <value>User roles</value>
+  </data>
+  <data name="UserUnlock" xml:space="preserve">
+    <value>Unlock</value>
   </data>
 </root>

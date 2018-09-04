@@ -123,7 +123,85 @@
   <data name="Error_Message" xml:space="preserve">
     <value>An error occurred while processing your request.</value>
   </data>
+  <data name="ForgotPassword_CheckYourEmail" xml:space="preserve">
+    <value>Please check your email to reset your password.</value>
+  </data>
+  <data name="ForgotPassword_EmailBody" xml:space="preserve">
+    <value>Please reset your password for {0} by clicking here: {1}.</value>
+  </data>
+  <data name="ForgotPassword_EmailSubject" xml:space="preserve">
+    <value>{0} - Reset Password</value>
+  </data>
+  <data name="ForgotPassword_EnterEmail" xml:space="preserve">
+    <value>Enter your email.</value>
+  </data>
+  <data name="Login_ForgotPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="Login_Invalid" xml:space="preserve">
+    <value>Invalid login attempt.</value>
+  </data>
+  <data name="Login_LocalAccount" xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
+  <data name="Login_LockedOut" xml:space="preserve">
+    <value>Locked Out</value>
+  </data>
+  <data name="Login_LockedOutMsg1" xml:space="preserve">
+    <value>Locked out.</value>
+  </data>
+  <data name="Login_LockedOutMsg2" xml:space="preserve">
+    <value>This account has been locked out, please try again later.</value>
+  </data>
+  <data name="Login_Lockout" xml:space="preserve">
+    <value>Your account is currently under lockout.</value>
+  </data>
+  <data name="Login_Register" xml:space="preserve">
+    <value>Register a new user?</value>
+  </data>
+  <data name="Login_UserEmailNotConfirmed" xml:space="preserve">
+    <value>Your email is not confirmed.</value>
+  </data>
+  <data name="Login_UserNotExists" xml:space="preserve">
+    <value>User does not exist.</value>
+  </data>
   <data name="NotFound_Message" xml:space="preserve">
     <value>Page ({0}) is not found. Click on {1} to return to home page.</value>
+  </data>
+  <data name="Registration_AlreadyHaveAccount" xml:space="preserve">
+    <value>I already have a membership</value>
+  </data>
+  <data name="Registration_CheckEmail" xml:space="preserve">
+    <value>Please check your email and confirm your email address.</value>
+  </data>
+  <data name="Registration_Confirmation" xml:space="preserve">
+    <value>Thank you for confirming your email. Please {0}.</value>
+  </data>
+  <data name="Registration_Description" xml:space="preserve">
+    <value>Create a new account.</value>
+  </data>
+  <data name="Registration_EmailBody" xml:space="preserve">
+    <value>Please confirm your account for {0} by clicking this link: {1}.</value>
+  </data>
+  <data name="Registration_EmailSubject" xml:space="preserve">
+    <value>{0} - Confirm your account</value>
+  </data>
+  <data name="Registration_PendingConfirmation" xml:space="preserve">
+    <value>Your account needs to be verified by system administrator. You will be notified by email...</value>
+  </data>
+  <data name="ReportProblem_Sent" xml:space="preserve">
+    <value>Reported problem is sent. Thank you for reporting!</value>
+  </data>
+  <data name="ResetPassword_Confirmation" xml:space="preserve">
+    <value>Your password has been reset. Please {0}.</value>
+  </data>
+  <data name="UserAdmin_InvalidEmail" xml:space="preserve">
+    <value>Invalid email!</value>
+  </data>
+  <data name="UserLinked_EmailBody" xml:space="preserve">
+    <value>Your account is verified.</value>
+  </data>
+  <data name="UserLinked_EmailSubject" xml:space="preserve">
+    <value>{0} - Account verified</value>
   </data>
 </root>

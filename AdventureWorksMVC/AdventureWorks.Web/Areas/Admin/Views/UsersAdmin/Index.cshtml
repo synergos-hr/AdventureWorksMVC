@@ -1,0 +1,179 @@
+﻿@using AdventureWorks.Resources
+@using AdventureWorks.Web.Helpers.Settings
+@{
+    ViewBag.Title = Labels.Users;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Title <i class="fa fa-spinner fa-spin wait-loading-window"></i></h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> @Labels.Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div id="grid"></div>
+
+    <div id="dialog-user-create" style="display: none"></div>
+
+    <div id="dialog-set-password" class="dialog-edit" style="display: none">
+    @using (Ajax.BeginForm("", "", new { area = "" }, new AjaxOptions { HttpMethod = "POST", Url = "/api/users/setPassword" }, new { id = "form-set-password", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="k-edit-form-container k-popup-edit-form">
+            <div class="form-group">
+                <div class="k-edit-label">
+                    <label>Nova lozinka</label>
+                </div>
+                <div data-container-for="NewPassword" class="k-edit-field">
+                    <input type="password" class="k-input k-textbox" name="NewPassword" required="required" data-bind="value: NewPassword">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="k-edit-label">
+                    <label>Potvrda lozinke</label>
+                </div>
+                <div data-container-for="ConfirmPassword" class="k-edit-field">
+                    <input type="password" class="k-input k-textbox" name="ConfirmPassword" required="required" data-bind="value: ConfirmPassword">
+                </div>
+            </div>
+            <div class="k-edit-buttons k-state-default">
+                <button role="button" class="k-button k-button-icontext k-primary" data-bind="events: { click: sync }"><span class="k-icon k-i-check"></span>@Labels.Save</button>
+                <button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>@Labels.Cancel</button>
+            </div>
+        </div>
+
+        <input type="hidden" data-val="true" name="UserId" data-val-required="UserId field is required." data-bind="value: UserId" />
+    }
+    </div>
+
+    <div id="dialog-roles" style="display: none"></div>
+</section>
+
+<script type="text/x-kendo-template" id="template-grid-toolbar">
+    <div class="toolbar-actions">
+        <button class="k-button k-button-icontext k-grid-create" name="create"><i class="fa fa-plus"></i> @Labels.Add</button>
+        <button class="k-button k-button-icontext k-grid-edit" name="editCustom"><i class="fa fa-edit"></i> @Labels.Edit</button>
+        <button class="k-button k-button-icontext k-grid-change-password" name="change-password"><i class="fa fa-key"></i> @Labels.ChangePassword</button>
+        @*<button class="k-button k-button-icontext k-grid-delete" name="delete"><i class="fa-trash-o"></i> @Labels.Delete</button>*@
+        <button class="k-button k-button-icontext k-grid-lock" name="lock"><i class="fa fa-lock"></i> @Labels.UserLock</button>
+        <button class="k-button k-button-icontext k-grid-unlock" name="unlock"><i class="fa fa-unlock"></i> @Labels.UserUnlock</button>
+        <button class="k-button k-button-icontext k-grid-roles" name="roles"><i class="fa fa-user-circle-o"></i> @Labels.UserRoles</button>
+        <button class="k-button k-button-icontext k-grid-history pull-right" name="history"><i class="fa fa-history"></i> @Labels.History</button>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-dialog-user-create">
+    <div class="k-edit-form-container k-popup-edit-form">
+        <div>
+            <div class="k-edit-label">
+                <label for="email">@Labels.Email</label>
+            </div>
+            <div data-container-for="email" class="k-edit-field">
+                <input type="email" class="k-input k-textbox" name="email" required="required" data-bind="value: selected.email" data-email-msg="@Messages.UserAdmin_InvalidEmail">
+            </div>
+        </div>
+        <div>
+            <div class="k-edit-label">
+                <label for="password">@Labels.Password</label>
+            </div>
+            <div data-container-for="password" class="k-edit-field">
+                <input type="password" class="k-input k-textbox" name="password" required="required" data-bind="value: selected.password">
+            </div>
+        </div>
+        <div>
+            <div class="k-edit-label">
+                <label for="confirmPassword">@Labels.ConfirmPassword</label>
+            </div>
+            <div data-container-for="confirmPassword" class="k-edit-field">
+                <input type="password" class="k-input k-textbox" name="confirmPassword" required="required" data-bind="value: selected.confirmPassword">
+            </div>
+        </div>
+        <div class="k-edit-buttons k-state-default">
+            <button role="button" class="k-button k-button-icontext k-primary" data-bind="events: { click: sync }"><span class="k-icon k-i-check"></span>@Labels.Save</button>
+            <button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>@Labels.Cancel</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-popup">
+    #if(data.isNew()) {#
+    #var createTemp = kendo.template($("\#template-popup-create").html());#
+    #=createTemp(data)#
+    #} else {#
+    #var editTemp = kendo.template($("\#template-popup-edit").html());#
+    #=editTemp(data)#
+    #}#
+</script>
+
+<script type="text/x-kendo-template" id="template-popup-create">
+    <div class="k-edit-label">
+        <label for="email">@Labels.Email</label>
+    </div>
+    <div data-container-for="email" class="k-edit-field">
+        <input type="text" class="k-input k-textbox" name="email" data-bind="value:email" required="required">
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-popup-edit">
+    <div class="k-edit-label">
+        <label for="email">@Labels.Email</label>
+    </div>
+    <div data-container-for="email" class="k-edit-field">
+        <input type="text" class="k-input k-textbox" name="email" data-bind="value:email" readonly>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-dialog-roles">
+    <div class="k-edit-form-container k-popup-edit-form">
+        <div class="form-group">
+            <div class="k-edit-label">
+                <label for="UserName">@Labels.User</label>
+            </div>
+            <div data-container-for="UserName" class="k-edit-field">
+                <input type="text" class="k-input k-textbox" name="UserName" data-bind="value:UserName" readonly>
+            </div>
+        </div>
+
+        <div id="grid-roles"></div>
+
+        <div class="k-edit-buttons k-state-default">
+            @*<button role="button" class="k-button k-button-icontext k-primary" data-bind="events: { click: sync }"><span class="k-icon k-i-check"></span>@Labels.Save</button>
+            <button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>@Labels.Cancel</button>*@
+            <button role="button" class="k-button k-button-icontext" data-bind="events: { click: cancel }"><span class="k-icon k-i-cancel"></span>@Labels.Exit</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="template-grid-roles-toolbar">
+    <div class="toolbar-actions">
+        <button class="k-button k-button-icontext k-grid-set" name="setRole"><i class="fa fa-plus"></i> @Labels.UserAddRole</button>
+        <button class="k-button k-button-icontext k-grid-unset" name="unsetRole"><i class="fa fa-minus"></i> @Labels.UserRemoveRole</button>
+    </div>
+</script>
+
+<div id="dialog-history"></div>
+
+<script type="text/x-kendo-template" id="template-dialog-history">
+    <div class="box box-default">
+        <div class="box-body">
+            <b>@Labels.Name :</b> <span data-bind="text: UserName"></span>
+        </div>
+    </div>
+    <div id="grid-history"></div>
+</script>
+
+@section styles {
+    @Styles.Render("~/Areas/" + ViewContext.RouteData.DataTokens["area"] + "/Views/" + ViewContext.RouteData.Values["controller"] + "/" + ViewContext.RouteData.Values["action"] + ".css?version=" + AppSettings.AppVersion)
+}
+@section scriptsKendo {
+    @*@Html.RenderKendoScripts(new[] { KendoScriptsHelper.KendoItem.Grid })*@
+}
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/Areas/" + ViewContext.RouteData.DataTokens["area"] + "/Views/" + ViewContext.RouteData.Values["controller"] + "/" + ViewContext.RouteData.Values["action"] + ".js?version=" + AppSettings.AppVersion)
+}

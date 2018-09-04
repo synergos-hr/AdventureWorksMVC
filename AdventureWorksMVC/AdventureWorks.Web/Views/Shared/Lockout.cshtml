@@ -1,0 +1,10 @@
+﻿@using AdventureWorks.Resources
+@model HandleErrorInfo
+@{
+    ViewBag.Title = Messages.Login_LockedOut;
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+}
+        <hgroup>
+            <h3 class="text-danger">@Messages.Login_LockedOutMsg1</h3>
+            <h4 class="text-danger">@Messages.Login_LockedOutMsg2</h4>
+        </hgroup>
